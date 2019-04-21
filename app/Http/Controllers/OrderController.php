@@ -62,7 +62,7 @@ class OrderController extends Controller
                 ];
             }
         }else{
-            die("订单不存在");
+            die("订单不存在或未支付");
         }
         die(json_encode($res));
     }
