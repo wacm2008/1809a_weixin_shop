@@ -21,7 +21,7 @@ class CarController extends Controller
             $data = [
                 'carlist'=>$carlist,
                 'goodslist' => $goodslist,
-                'total'     => $total_price
+                'total'     => $total_price/100
             ];
             return view('car/index',$data);
         }else{
