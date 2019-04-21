@@ -96,6 +96,7 @@
                     dataType:'json',
                     success: function(res){
                         if(res.status==0){
+                            alert("支付成功");
                             location.href = "/pay/success?o_id={{$o_id}}";
                         }
                         //console.log(res);
