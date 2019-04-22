@@ -35,3 +35,7 @@ Route::get('/weixin/pay', 'WxpayController@pay');
 Route::post('/weixin/notify', 'WxpayController@notify');
 //支付成功
 Route::get('/pay/success', 'WxpayController@paySuccess');
+//商品详情
+Route::get('/goodsdetail/{goods_id}', 'GoodsController@goodsdetail');
+//商品浏览排名
+Route::get('/goodsranking', 'GoodsController@ranking');
