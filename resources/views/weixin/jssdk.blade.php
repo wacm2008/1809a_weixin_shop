@@ -50,7 +50,7 @@
                                     '/jssdk/foto',
                                     {serverId:serverId},
                                     function (ser) {
-                                        console.log(ser);
+                                        alert(ser);
                                     }
                                 )
                             }
