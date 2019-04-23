@@ -40,4 +40,6 @@ Route::get('/goodsdetail/{goods_id}', 'GoodsController@goodsdetail');
 //商品浏览排名
 Route::get('/goodsranking', 'GoodsController@ranking');
 //微信jssdk
-Route::get('/jssdk', 'WxjssdkController@jssdk');
+Route::get('/jssdk/test', 'WxjssdkController@jssdk');
+//微信jssdk获取上传照片
+Route::get('jssdk/foto','WxjssdkController@foto');
