@@ -37,12 +37,14 @@
                     var img = "";
                     $.each(localIds,function (i,v) {
                         img+=v+',';
+                        var node = "#imgs"+i;
+                        $(node).attr('src',v);
                     })
                     $.ajax({
                         url : '/jssdk/foto?img='+img,     //将上传的照片id发送给后端
                         type: 'get',
-                        success:function(res){
-                            console.log(res);
+                        success:function(re){
+                            console.log(re);
                         }
                     });
                     console.log(img);
