@@ -24,7 +24,7 @@
         timestamp: "{{$jsconfig['timestamp']}}", // 必填，生成签名的时间戳
         nonceStr: "{{$jsconfig['nonceStr']}}", // 必填，生成签名的随机串
         signature: "{{$jsconfig['signature']}}",// 必填，签名
-        jsApiList: ['chooseImage','uploadImage'] // 必填，需要使用的JS接口列表
+        jsApiList: ['chooseImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表
     });
     wx.ready(function () {
         $('#btn1').click(function () {
@@ -45,19 +45,33 @@
                             isShowProgressTips: 1, // 默认为1，显示进度提示
                             success: function (r) {
                                 var serverId = r.serverId; // 返回图片的服务器端ID
-                                //alert('serverID: '+ serverId);
-                                console.log(r);
+                                //console.log(r);
+                                $.get(
+                                    '/jssdk/foto',
+                                    {serverId:serverId},
+                                    function (ser) {
+                                        console.log(ser);
+                                    }
+                                )
                             }
                         });
+                        //下载图片
+                        // wx.downloadImage({
+                        //     serverId: '', // 需要下载的图片的服务器端ID，由uploadImage接口获得
+                        //     isShowProgressTips: 1, // 默认为1，显示进度提示
+                        //     success: function (res) {
+                        //         var localId = res.localId; // 返回图片下载后的本地ID
+                        //     }
+                        // });
                     })
-                    $.ajax({
-                        url : '/jssdk/foto?img='+img,     //将上传的照片id发送给后端
-                        type: 'get',
-                        success:function(re){
-                            console.log(re);
-                        }
-                    });
                     console.log(img);
+                    // $.get({
+                    //     url : '/jssdk/foto?img='+img,     //将上传的照片id发送给后端
+                    //     type: 'get',
+                    //     success:function(re){
+                    //         console.log(re);
+                    //     }
+                    // });
                 }
             });
         })

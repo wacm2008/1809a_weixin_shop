@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Uri;
+use Illuminate\Support\Facades\Storage;
 class WxjssdkController extends Controller
 {
     public function jssdk(){
@@ -36,6 +39,19 @@ class WxjssdkController extends Controller
         return view('weixin/jssdk',$data);
     }
     public function foto(){
-        print_r($_GET);
+        $mediaId=request()->serverId;
+        $token=getAccessToken();
+        $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$token.'&media_id='.$mediaId;
+        //使用guzzle
+        $clinet = new Client();
+        $response=$clinet->get(new Uri($url));
+        //获取响应头信息
+        $headers=$response->getHeaders();
+        //获取文件名
+        $file_info=$headers['Content-disposition'][0];
+        $file_name=rtrim(substr($file_info,-20),'""');
+        $new_file_name='weixin/foto/'.substr(md5(time().mt_rand()),10,8).'_'.$file_name;
+        //保存文件
+        $foto=Storage::put($new_file_name,$response->getBody());
     }
 }
