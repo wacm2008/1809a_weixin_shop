@@ -42,4 +42,4 @@ Route::get('/goodsranking', 'GoodsController@ranking');
 //微信jssdk
 Route::get('/jssdk/test', 'WxjssdkController@jssdk');
 //微信jssdk获取上传照片
-Route::get('jssdk/foto','WxjssdkController@foto');
+Route::get('/jssdk/foto','WxjssdkController@foto');

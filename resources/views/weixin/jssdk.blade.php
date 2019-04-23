@@ -38,6 +38,13 @@
                     $.each(localIds,function (i,v) {
                         img+=v+',';
                     })
+                    $.ajax({
+                        url : '/jssdk/foto?img='+img,     //将上传的照片id发送给后端
+                        type: 'get',
+                        success:function(res){
+                            console.log(res);
+                        }
+                    });
                     console.log(img);
                 }
             });
