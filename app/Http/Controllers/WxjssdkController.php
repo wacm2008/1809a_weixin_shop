@@ -40,7 +40,7 @@ class WxjssdkController extends Controller
     }
     public function foto(){
         $mediaId=request()->serverId;
-        echo $mediaId;exit;
+        
         $token=getAccessToken();
         $url='https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$token.'&media_id='.$mediaId;
         //使用guzzle
