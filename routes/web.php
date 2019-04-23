@@ -39,3 +39,5 @@ Route::get('/pay/success', 'WxpayController@paySuccess');
 Route::get('/goodsdetail/{goods_id}', 'GoodsController@goodsdetail');
 //商品浏览排名
 Route::get('/goodsranking', 'GoodsController@ranking');
+//微信jssdk
+Route::get('/jssdk', 'WxjssdkController@jssdk');
