@@ -303,6 +303,8 @@ class WxController extends Controller
     }
     //授权回调
     public function getU(){
-
+        print_r($_GET);
+//        $code = $_GET['code'];
+//        echo $code;
     }
 }
