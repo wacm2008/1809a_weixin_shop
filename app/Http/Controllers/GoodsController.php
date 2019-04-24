@@ -52,8 +52,11 @@ class GoodsController extends Controller
         return view('goods/goodslist',['data'=>$data,'browse'=>$browse]);
     }
     //最新商品
-    public function newgoods(){
-        $data=GoodsModel::get();
+    public function newgoods($goods_id){
+        if(!$goods_id){
+            return $goods_id;
+        }
+        $data=GoodsModel::where(['goods_id'=>$goods_id])->first();
         return view('goods/goods',['data'=>$data]);
     }
 }

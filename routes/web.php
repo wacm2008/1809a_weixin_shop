@@ -57,4 +57,4 @@ Route::get('/weixin/test','WxController@test');
 //微信群发
 Route::get('/weixin/send','WxController@send');
 //最新商品
-Route::get('/newgoods', 'GoodsController@newgoods');
+Route::get('/newgoods/{goods_id}', 'GoodsController@newgoods');
