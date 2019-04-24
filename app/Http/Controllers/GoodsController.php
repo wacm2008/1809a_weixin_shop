@@ -55,8 +55,13 @@ class GoodsController extends Controller
     }
     //最新商品
     public function newgoods(){
-        $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get();
-        return view('goods/goods',['data'=>$data]);
+        $goods=GoodsModel::orderBy('goods_id','desc')->take(1)->get();
+        $jsconfig=$this->jssdk();
+        $data=[
+            'jsconfig'=>$jsconfig,
+            'goods'=>$goods
+        ];
+        return view('goods/goods',$data);
     }
 
     public function jssdk(){
@@ -83,9 +88,6 @@ class GoodsController extends Controller
             'nonceStr'=>$nonceStr,
             'signature'=>$sign,
         ];
-        $data=[
-            'jsconfig'=>$js_config
-        ];
-        return view('weixin/jssdk2',$data);
+        return $js_config;
     }
 }
