@@ -87,11 +87,13 @@
                             <td>商品名</td>
                             <td>商品价格</td>
                         </tr>
+                        @foreach($data as $k=>$v)
                         <tr>
-                            <td>{{$data->goods_id}}</td>
-                            <td>{{$data->goods_name}}</td>
-                            <td>{{$data->goods_price}}</td>
+                            <td>{{$v->goods_id}}</td>
+                            <td>{{$v->goods_name}}</td>
+                            <td>{{$v->goods_price}}</td>
                         </tr>
+                            @endforeach
                     </table>
                 </div>
             </div>
