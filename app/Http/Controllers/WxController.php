@@ -312,6 +312,24 @@ class WxController extends Controller
         //获取用户信息
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $user_info = json_decode(file_get_contents($url),true);
-        print_r($user_info);
+        //print_r($user_info);
+        //根据openid判断用户是否已存在
+        $local_user = WxuserModel::where(['openid'=>$openid])->first();
+        if($local_user){
+            //用户之前关注过
+            echo $local_user['nickname'].'gracias por haberte vuelto';
+        }else{
+            //用户首次关注 获取用户信息
+            $arr = $this->getUserInfo($openid);
+            //用户信息入库
+            $user_info = [
+                'openid'    => $arr['openid'],
+                'nickname'  => $arr['nickname'],
+                'sex'  => $arr['sex'],
+                'headimgurl'  => $arr['headimgurl'],
+            ];
+            $id = WxuserModel::insertGetId($user_info);
+            echo $arr['nickname'].'gracias por seguirme';
+        }
     }
 }
