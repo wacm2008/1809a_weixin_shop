@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test/urlencode', function () {
+    echo urlencode($_GET['url']);
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -39,6 +43,7 @@ Route::get('/pay/success', 'WxpayController@paySuccess');
 Route::get('/goodsdetail/{goods_id}', 'GoodsController@goodsdetail');
 //商品浏览排名
 Route::get('/goodsranking', 'GoodsController@ranking');
+
 //微信jssdk
 Route::get('/jssdk/test', 'WxjssdkController@jssdk');
 //微信jssdk获取上传照片
@@ -58,3 +63,7 @@ Route::get('/weixin/test','WxController@test');
 Route::get('/weixin/send','WxController@send');
 //商品详情
 Route::get('/newgoods', 'GoodsController@newgoods');
+//计划任务删除过期订单
+Route::get('/crontab/delorder', 'Crontab\CrontabController@delorder');
+//微信网页授权回调
+Route::get('/wxweb/u', 'WxController@getU');

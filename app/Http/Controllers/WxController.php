@@ -301,4 +301,8 @@ class WxController extends Controller
         $res=$this->sendQun($openid_arr,$msg);
         echo $res;
     }
+    //授权回调
+    public function getU(){
+
+    }
 }
