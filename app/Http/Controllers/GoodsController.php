@@ -83,9 +83,9 @@ class GoodsController extends Controller
             'nonceStr'=>$nonceStr,
             'signature'=>$sign,
         ];
-        $dat=[
+        $data=[
             'jsconfig'=>$js_config
         ];
-        return view('goods/goods',$dat);
+        return view('weixin/jssdk2',$data);
     }
 }
