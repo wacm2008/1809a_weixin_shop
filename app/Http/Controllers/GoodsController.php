@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\GoodsModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 class GoodsController extends Controller
 {
@@ -13,7 +14,8 @@ class GoodsController extends Controller
         if(!$goods_id){
             return $goods_id;
         }
-        $detailInfo=GoodsModel::where(['goods_id'=>$goods_id])->first();
+        //$detailInfo=GoodsModel::where(['goods_id'=>$goods_id])->first();
+        $detailInfo=DB::table('p_goods')->where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
         //dd($detailInfo);
         //浏览商品自增
 //        $browse=$detailInfo['goods_browse']+1;
@@ -56,7 +58,7 @@ class GoodsController extends Controller
         if(!$goods_id){
             return $goods_id;
         }
-        $data=GoodsModel::where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
+        $data=DB::table('p_goods')->where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
         return view('goods/goods',['data'=>$data]);
     }
 }

@@ -10,7 +10,7 @@ use App\WxvoiceModel;
 use App\WxfotoModel;
 use App\WxtextModel;
 use App\GoodsModel;
-use DB;
+use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
 use Illuminate\Support\Facades\Storage;
@@ -149,10 +149,10 @@ class WxController extends Controller
                     echo $response_xml;
                 }
             }else if($data->Content=='最新商品'){
-                $data=GoodsModel::orderBy('goods_id','desc')->limit(1)->first();
+                $data=DB::table('p_goods')->orderBy('goods_id','desc')->limit(1)->first();
                 $goods_name=$data->goods_name;
                 $str='最新商品';
-                $url='http://1809bilige.comcto.com/newgoods/'+$data->goods_id;
+                $url='http://1809bilige.comcto.com/goodsdetail/'+$data->goods_id;
                 $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
