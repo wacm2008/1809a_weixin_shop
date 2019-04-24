@@ -151,7 +151,6 @@ class WxController extends Controller
             }else if($data->Content=='最新商品'){
                 $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
                 $goods_name=$data[0]['goods_name'];
-                echo $goods_name;
                 $str='最新商品';
                 $url='http://1809bilige.comcto.com/newgoods';
                 $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
