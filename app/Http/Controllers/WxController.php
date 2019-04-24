@@ -61,10 +61,10 @@ class WxController extends Controller
             $foto=Storage::put($new_file_name,$response->getBody());
             //var_dump($foto);
             //获取用户信息
-            $arr = $this->getUserInfo($openid);
+            //$arr = $this->getUserInfo($openid);
             //图片入库
             $foto_info=[
-                'openid'    => $arr['openid'],
+                'openid'    => $openid,
                 'f_time' => time(),
                 'foto_address'  => $new_file_name,
             ];
@@ -89,10 +89,10 @@ class WxController extends Controller
             $voice=Storage::put($file_name,$response->getBody());
             //var_dump($voice);
             //获取用户信息
-            $arr = $this->getUserInfo($openid);
+            //$arr = $this->getUserInfo($openid);
             //语音入库
             $voice_info=[
-                'openid'    => $arr['openid'],
+                'openid'    => $openid,
                 'voice_address'  => $file_name,
                 'v_time' => time(),
             ];
@@ -107,10 +107,10 @@ class WxController extends Controller
             echo $response_xml;
         }else if($msg_type=='text'){
             //获取用户信息
-            $arr = $this->getUserInfo($openid);
+            //$arr = $this->getUserInfo($openid);
             //文字入库
             $text_info=[
-                'openid'    => $arr['openid'],
+                'openid'    => $openid,
                 'wx_text'  => $data->Content,
                 't_time' => time(),
             ];
@@ -149,8 +149,9 @@ class WxController extends Controller
                     echo $response_xml;
                 }
             }else if($data->Content=='最新商品'){
-                $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get();
-                $goods_name=$data->goods_name;
+                $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
+                $goods_name=$data[0]['goods_name'];
+                echo $goods_name;
                 $str='最新商品';
                 $url='http://1809bilige.comcto.com/newgoods';
                 $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
