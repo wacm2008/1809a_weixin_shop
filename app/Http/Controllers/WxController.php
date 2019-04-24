@@ -147,6 +147,8 @@ class WxController extends Controller
                                    </xml>';
                     echo $response_xml;
                 }
+            }else if($data->Content=='最新商品'){
+                echo 111;
             }
         }
         //扫码关注事件
