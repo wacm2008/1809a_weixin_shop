@@ -176,7 +176,7 @@ class WxController extends Controller
         //是否有缓存
         $key='wx_access_token';
         $token=Redis::get($key);
-        //var_dump($token);exit;
+        //var_dump($token);
         if($token){
             //return $token;
             echo "con cache：";
