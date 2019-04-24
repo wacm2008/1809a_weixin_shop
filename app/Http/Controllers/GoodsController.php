@@ -83,9 +83,9 @@ class GoodsController extends Controller
             'nonceStr'=>$nonceStr,
             'signature'=>$sign,
         ];
-        $data=[
+        $dat=[
             'jsconfig'=>$js_config
         ];
-        return view('goods/goods',$data);
+        return view('goods/goods',$dat);
     }
 }
