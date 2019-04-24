@@ -9,6 +9,7 @@ use App\WxuserModel;
 use App\WxvoiceModel;
 use App\WxfotoModel;
 use App\WxtextModel;
+use App\GoodsModel;
 use DB;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Uri;
@@ -148,7 +149,25 @@ class WxController extends Controller
                     echo $response_xml;
                 }
             }else if($data->Content=='最新商品'){
-                echo 111;
+                $data=GoodsModel::first();
+                $goods_name=$data->goods_name;
+                $str='最新商品';
+                $url='http://1809bilige.comcto.com/newgoods';
+                $response_xml='<xml>
+                                  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                                  <CreateTime>'.time().'</CreateTime>
+                                  <MsgType><![CDATA[news]]></MsgType>
+                                  <ArticleCount>1</ArticleCount>
+                                  <Articles>
+                                    <item>
+                                      <Title><![CDATA['.$str.']]></Title>
+                                      <Description><![CDATA['.$goods_name.']]></Description>
+                                      <PicUrl><![CDATA[picurl]]></PicUrl>
+                                      <Url><![CDATA['.$url.']]></Url>
+                                    </item>
+                                  </Articles>
+                                </xml>';
             }
         }
         //扫码关注事件
