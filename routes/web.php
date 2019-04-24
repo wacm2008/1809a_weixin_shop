@@ -43,3 +43,16 @@ Route::get('/goodsranking', 'GoodsController@ranking');
 Route::get('/jssdk/test', 'WxjssdkController@jssdk');
 //微信jssdk获取上传照片
 Route::get('/jssdk/foto','WxjssdkController@foto');
+
+//微信首次连接
+Route::get('/weixin/valid','WxController@valid');
+//接收微信服务推送
+Route::post('/weixin/valid','WxController@valide');
+Route::get('/weixin/accesstoken','WxController@getAccessToken');
+//微信菜单测试
+Route::get('/weixin/atoken','WxController@getaToken');
+//微信菜单创建
+Route::get('/weixin/createmenu','WxController@createMenu');
+Route::get('/weixin/test','WxController@test');
+//微信群发
+Route::get('/weixin/send','WxController@send');

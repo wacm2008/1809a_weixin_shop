@@ -65,13 +65,6 @@
                         // });
                     })
                     console.log(img);
-                    // $.get({
-                    //     url : '/jssdk/foto?img='+img,     //将上传的照片id发送给后端
-                    //     type: 'get',
-                    //     success:function(re){
-                    //         console.log(re);
-                    //     }
-                    // });
                 }
             });
         })
