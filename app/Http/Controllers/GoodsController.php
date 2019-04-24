@@ -15,7 +15,7 @@ class GoodsController extends Controller
             return $goods_id;
         }
         //$detailInfo=GoodsModel::where(['goods_id'=>$goods_id])->first();
-        $detailInfo=DB::table('p_goods')->where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
+
         //dd($detailInfo);
         //浏览商品自增
 //        $browse=$detailInfo['goods_browse']+1;
@@ -58,7 +58,7 @@ class GoodsController extends Controller
         if(!$goods_id){
             return $goods_id;
         }
-        $data=DB::table('p_goods')->where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
+        $data=GoodsModel::where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->take(1)->get();
         return view('goods/goods',['data'=>$data]);
     }
 }
