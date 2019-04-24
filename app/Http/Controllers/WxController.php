@@ -153,6 +153,7 @@ class WxController extends Controller
                 $goods_name=$data->goods_name;
                 $str='最新商品';
                 $url='http://1809bilige.comcto.com/newgoods';
+                $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -163,7 +164,7 @@ class WxController extends Controller
                                     <item>
                                       <Title><![CDATA['.$str.']]></Title>
                                       <Description><![CDATA['.$goods_name.']]></Description>
-                                      <PicUrl><![CDATA[picurl]]></PicUrl>
+                                      <PicUrl><![CDATA['.$urli.']]></PicUrl>
                                       <Url><![CDATA['.$url.']]></Url>
                                     </item>
                                   </Articles>
