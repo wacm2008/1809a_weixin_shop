@@ -169,6 +169,7 @@ class WxController extends Controller
                                     </item>
                                   </Articles>
                                 </xml>';
+                echo $response_xml;
             }
         }
         //扫码关注事件
