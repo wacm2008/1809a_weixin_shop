@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\GoodsModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 class GoodsController extends Controller
 {
     //商品详情
