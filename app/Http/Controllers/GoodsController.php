@@ -56,7 +56,7 @@ class GoodsController extends Controller
         if(!$goods_id){
             return $goods_id;
         }
-        $data=GoodsModel::where(['goods_id'=>$goods_id])->first();
+        $data=GoodsModel::where(['goods_id'=>$goods_id])->orderBy('goods_id','desc')->limit(1)->first();
         return view('goods/goods',['data'=>$data]);
     }
 }
