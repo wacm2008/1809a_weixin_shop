@@ -8,6 +8,7 @@ class OrderModel extends Model
 {
     protected $table='p_order';
     public $timestamps=false;
+    protected $primaryKey='o_id';
     //生成订单编号
     public static function generateOrderSN($uid)
     {
