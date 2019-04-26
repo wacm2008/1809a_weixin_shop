@@ -149,10 +149,10 @@ class WxController extends Controller
                     echo $response_xml;
                 }
             }else if($data->Content=='最新商品'){
-                $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
+                $data=GoodsModel::orderBy('goods_id','desc')->first()->toArray();
                 $goods_name=$data[0]['goods_name'];
                 $str='最新商品';
-                $url='http://1809bilige.comcto.com/newgoods';
+                $url="http://1809bilige.comcto.com/newgoods/$data[0]['goods_id']";
                 $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>

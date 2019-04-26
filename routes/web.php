@@ -62,7 +62,7 @@ Route::get('/weixin/test','WxController@test');
 //微信群发
 Route::get('/weixin/send','WxController@send');
 //商品详情
-Route::get('/newgoods', 'GoodsController@newgoods');
+Route::get('/newgoods/{goods_id}', 'GoodsController@newgoods');
 //计划任务删除过期订单
 Route::get('/crontab/delorder', 'Crontab\CrontabController@delorder');
 //微信网页授权回调
