@@ -23,8 +23,11 @@ Route::group([
     Route::resource('/texts', TextController::class);
     //发送语音
     Route::resource('/voices', VoiceController::class);
-    //上传图片
+    //上传文件
     $router->get('/addimg', 'ImageController@index');
     Route::post('/uploadimg', 'ImageController@upload');
     Route::get('/showimg', 'ImageController@show');
+    //群发
+    Route::get('/muestra', 'ImageController@muestra');
+    Route::get('/sendtodo', 'ImageController@sendtodo');
 });

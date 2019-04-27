@@ -5,10 +5,12 @@ namespace App\Admin\Controllers;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Layout\Content;
 use GuzzleHttp\Client;
-use App\Wxfoto;
+use App\WxmaterialModel;
+use App\WxuserModel;
 use Illuminate\Support\Str;
 class ImageController extends Controller
 {
+    //文件添加
     public function index(Content $content){
         return $content
             ->header('上传图片')
@@ -33,7 +35,7 @@ class ImageController extends Controller
             $extension = $photo->getClientOriginalExtension();
             //获取文件名
             $files=time().Str::random(8).'.'.$extension;
-            //接收文件保存的相对路径
+            //接收文件保存的相对路径 storeAS手动创文件名 store自动创建
             $store_result = $photo->storeAS($type,$files);
         }
 
@@ -55,7 +57,7 @@ class ImageController extends Controller
                 'media_id'=>$arr['media_id'],
                 'created_at'=>time()
             ];
-            Wxfoto::insertGetId($res);
+            WxmaterialModel::insertGetId($res);
         }
         return $content->description('上传成功');
     }
@@ -83,11 +85,44 @@ class ImageController extends Controller
 //            Wxfoto::insertGetId($res);
 //        }
 //    }
+    //素材展示
     public function show(Content $content){
-        $data=Wxfoto::get();
+        $data=WxmaterialModel::get();
         return $content
-            ->header('图片展示')
+            ->header('素材展示')
             ->description('description')
             ->body(view('admin.weixin.showimg',['data'=>$data]));
+    }
+    //群发用户展示
+    public function muestra(Content $content){
+        $data=WxuserModel::get();
+        return $content
+            ->header('用户展示')
+            ->description('description')
+            ->body(view('admin.weixin.showuser',['data'=>$data]));
+    }
+    //群发
+    public function sendtodo(){
+        $openid=$_GET['openid'];
+        $text=$_GET['text'];
+        $openid=explode(',',$openid);
+        $msg=[
+            'touser'=>$openid,
+            'msgtype'=>'text',
+            'text'=>[
+                'content'=>$text,
+            ]
+        ];
+        $url='https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.getAccessToken();
+        $data = json_encode($msg,JSON_UNESCAPED_UNICODE);
+        $client = new Client();
+        $response=$client->request('POST',$url,[
+            'body'=>$data
+        ]);
+        if($response){
+            return json_encode(['code'=>1,'msg'=>'成功']);
+        }else{
+            return json_encode(['code'=>2,'msg'=>'失败']);
+        }
     }
 }
