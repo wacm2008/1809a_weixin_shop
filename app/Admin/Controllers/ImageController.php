@@ -95,11 +95,12 @@ class ImageController extends Controller
     }
     //群发用户展示
     public function muestra(Content $content){
-        $data=WxuserModel::get();
+        $data=WxuserModel::where(['sub_status'=>1])->get();
+        $dat=WxmaterialModel::get();
         return $content
             ->header('用户展示')
             ->description('description')
-            ->body(view('admin.weixin.showuser',['data'=>$data]));
+            ->body(view('admin.weixin.showuser',['data'=>$data,'dat'=>$dat]));
     }
     //群发
     public function sendtodo(){
@@ -125,4 +126,41 @@ class ImageController extends Controller
             return json_encode(['code'=>2,'msg'=>'失败']);
         }
     }
+//      public function sendtodo(){
+//          //类型
+//          $type = $_GET['send_type'];
+//          //群发内容
+//          $content = $_GET['send_content'];
+//          //openid
+//          $openid=$_GET['openid'];
+//          $openid=explode(',',$openid);
+//          if($type=='text'){
+//              $msg = [
+//                  'touser'=>$openid,
+//                  'msgtype'=>$type,
+//                  "$type"=>[
+//                      'content'=>$content
+//                  ]
+//              ];
+//          }else{
+//              $msg = [
+//                  'touser'=>$openid,
+//                  'msgtype'=>$type,
+//                  "$type"=>[
+//                      'media_id'=>$content
+//                  ]
+//              ];
+//          }
+//          $url='https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.getAccessToken();
+//          $data = json_encode($msg,JSON_UNESCAPED_UNICODE);
+//          $client = new Client();
+//          $response=$client->request('POST',$url,[
+//             'body'=>$data
+//          ]);
+//          if($response){
+//              return json_encode(['code'=>1,'msg'=>'成功']);
+//          }else{
+//              return json_encode(['code'=>2,'msg'=>'失败']);
+//          }
+//      }
 }
