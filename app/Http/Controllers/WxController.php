@@ -332,4 +332,18 @@ class WxController extends Controller
             echo $arr['nickname'].'gracias por seguirme';
         }
     }
+    //带参数二维码
+    public function qcode(){
+        $url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.getAccessToken();
+        $data=[
+            "expire_seconds"=>666666,
+            "action_name"=>"QR_SCENE",
+            "action_info"=>[
+                "scene"=>[
+                    "scene_id"=>12345
+                ]
+            ]
+        ];
+
+    }
 }

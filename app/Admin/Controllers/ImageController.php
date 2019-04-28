@@ -95,12 +95,12 @@ class ImageController extends Controller
     }
     //群发用户展示
     public function muestra(Content $content){
-        $data=WxuserModel::where(['sub_status'=>1])->get();
-        $dat=WxmaterialModel::get();
+        $data=WxuserModel::get();
+        //$dat=WxmaterialModel::get();
         return $content
             ->header('用户展示')
             ->description('description')
-            ->body(view('admin.weixin.showuser',['data'=>$data,'dat'=>$dat]));
+            ->body(view('admin.weixin.showuser',['data'=>$data]));
     }
     //群发
     public function sendtodo(){

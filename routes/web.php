@@ -67,3 +67,5 @@ Route::get('/newgoods', 'GoodsController@newgoods');
 Route::get('/crontab/delorder', 'Crontab\CrontabController@delorder');
 //微信网页授权回调
 Route::get('/wxweb/u', 'WxController@getU');
+//参数二维码
+Route::get('/qcode', 'WxController@qcode');

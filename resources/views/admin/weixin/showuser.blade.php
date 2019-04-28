@@ -59,13 +59,13 @@
             var _this=$(this);
             var estado=_this.prop('checked');
             $('.box').prop('checked',estado);
-        });
+        })
         $('.box').click(function(){
             var _this=$(this);
             if(_this.prop('checked')==false){
                 $('#allbox').prop('checked',false);
             }
-        });
+        })
         //下拉菜单
         {{--$('#sel').change(function () {--}}
             {{--var _this=$(this);--}}
@@ -88,7 +88,7 @@
                 if(_this.prop('checked')==true){
                     openid += _this.parents('tr').attr('openid') + ',';
                 }
-            });
+            })
             openid=openid.substr(0,openid.length-1);
             if(openid==''){
                 alert('至少选择一位发送人');
@@ -125,7 +125,7 @@
                 url : "/admin/sendtodo?openid="+openid+"&text="+text,
                 success:function(res){
                     if(res.code==1){
-                        alert('发送成功');
+                        alert('成功');
                     }
                 },
                 dataType:'json'
