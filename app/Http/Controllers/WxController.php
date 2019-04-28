@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\QcodeModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -38,8 +39,89 @@ class WxController extends Controller
         $event = $data->Event;//事件类型
         //使用guzzle
         $clinet = new Client();
-        //图片素材处理
         $msg_type=$data->MsgType;
+        //扫码关注事件
+        if($event=='subscribe'){
+            if($msg_type=='event'){
+                $user=QcodeModel::where(['openid'=>$openid])->first();
+                if($user){
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '欢迎回来 '. $user['nickname'] .']]></Content></xml>';
+                    $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
+                    $goods_name=$data[0]['goods_name'];
+                    $str='最新商品';
+                    $url="http://1809bilige.comcto.com/newgoods";
+                    $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
+                    $response_xml='<xml>
+                                  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                                  <CreateTime>'.time().'</CreateTime>
+                                  <MsgType><![CDATA[news]]></MsgType>
+                                  <ArticleCount>1</ArticleCount>
+                                  <Articles>
+                                    <item>
+                                      <Title><![CDATA['.$str.']]></Title>
+                                      <Description><![CDATA['.$goods_name.']]></Description>
+                                      <PicUrl><![CDATA['.$urli.']]></PicUrl>
+                                      <Url><![CDATA['.$url.']]></Url>
+                                    </item>
+                                  </Articles>
+                                </xml>';
+                    echo $response_xml;
+                }else{
+                    $arr = $this->getUserInfo($openid);
+                    $useinfo = [
+                        'openid'    => $arr['openid'],
+                        'nickname'  => $arr['nickname'],
+                        'sex'  => $arr['sex'],
+                        'headimgurl'  => $arr['headimgurl'],
+                    ];
+                    $re = QcodeModel::insertGetId($useinfo);
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '谢谢关注 '. $arr['nickname'] .']]></Content></xml>';
+                    $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
+                    $goods_name=$data[0]['goods_name'];
+                    $str='最新商品';
+                    $url="http://1809bilige.comcto.com/newgoods";
+                    $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
+                    $response_xml='<xml>
+                                  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                                  <CreateTime>'.time().'</CreateTime>
+                                  <MsgType><![CDATA[news]]></MsgType>
+                                  <ArticleCount>1</ArticleCount>
+                                  <Articles>
+                                    <item>
+                                      <Title><![CDATA['.$str.']]></Title>
+                                      <Description><![CDATA['.$goods_name.']]></Description>
+                                      <PicUrl><![CDATA['.$urli.']]></PicUrl>
+                                      <Url><![CDATA['.$url.']]></Url>
+                                    </item>
+                                  </Articles>
+                                </xml>';
+                    echo $response_xml;
+                }
+            }else{
+                //根据openid判断用户是否已存在
+                $local_user = WxuserModel::where(['openid'=>$openid])->first();
+                if($local_user){
+                    //用户之前关注过
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'gracias por haberte vuelto '. $local_user['nickname'] .']]></Content></xml>';
+                }else{
+                    //用户首次关注 获取用户信息
+                    $arr = $this->getUserInfo($openid);
+                    //用户信息入库
+                    $user_info = [
+                        'openid'    => $arr['openid'],
+                        'nickname'  => $arr['nickname'],
+                        'sex'  => $arr['sex'],
+                        'headimgurl'  => $arr['headimgurl'],
+                    ];
+                    $id = WxuserModel::insertGetId($user_info);
+                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'gracias por seguirme '. $arr['nickname'] .']]></Content></xml>';
+                }
+            }
+
+        }
+        //图片素材处理
         if($msg_type=='image'){
             //$url=$data->PicUrl;
             //$response=$clinet->get(new Uri($url));
@@ -170,27 +252,6 @@ class WxController extends Controller
                                   </Articles>
                                 </xml>';
                 echo $response_xml;
-            }
-        }
-        //扫码关注事件
-        if($event=='subscribe'){
-            //根据openid判断用户是否已存在
-            $local_user = WxuserModel::where(['openid'=>$openid])->first();
-            if($local_user){
-                //用户之前关注过
-                echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'gracias por haberte vuelto '. $local_user['nickname'] .']]></Content></xml>';
-            }else{
-                //用户首次关注 获取用户信息
-                $arr = $this->getUserInfo($openid);
-                //用户信息入库
-                $user_info = [
-                    'openid'    => $arr['openid'],
-                    'nickname'  => $arr['nickname'],
-                    'sex'  => $arr['sex'],
-                    'headimgurl'  => $arr['headimgurl'],
-                ];
-                $id = WxuserModel::insertGetId($user_info);
-                echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'gracias por seguirme '. $arr['nickname'] .']]></Content></xml>';
             }
         }
     }
@@ -340,10 +401,22 @@ class WxController extends Controller
             "action_name"=>"QR_SCENE",
             "action_info"=>[
                 "scene"=>[
-                    "scene_id"=>12345
+                    "scene_id"=>123
                 ]
             ]
         ];
-
+        //处理中文编码
+        $json_str = json_encode($data,JSON_UNESCAPED_UNICODE);
+        // 发送请求
+        $client = new Client();
+        //发送 json字符串
+        $response = $client->request('POST',$url,[
+            'body'  => $json_str
+        ]);
+        //处理响应
+        $res_str = $response->getBody();
+        $arr = json_decode($res_str,true);
+        $urli='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$arr['ticket'];
+        header("refresh:1;url=$urli");
     }
 }
