@@ -62,7 +62,11 @@ class GoodsController extends Controller
             'jsconfig'=>$jsconfig,
             'goods'=>$goods
         ];
-        return view('goods/goods',$data);
+        $server=[
+            'server'=>$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] .$_SERVER['REQUEST_URI']
+        ];
+
+        return view('goods/goods',$data,$server);
     }
 
     public function jssdk(){

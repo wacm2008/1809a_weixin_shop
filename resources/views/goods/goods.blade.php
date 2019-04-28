@@ -80,7 +80,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title m-b-md" id="qrcode">
                     <table>
                         <tr>
                             <td>id</td>
@@ -98,6 +98,10 @@
                 </div>
             </div>
         </div>
+        <script src="/js/qrcode.js"></script>
+        <script type="text/javascript">
+            new QRCode(document.getElementById("qrcode"), "{{$server}}");
+        </script>
         <script src="/js/jquery.js"></script>
         <script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
         <script>
