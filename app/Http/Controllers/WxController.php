@@ -414,6 +414,7 @@ class WxController extends Controller
     //授权码
     public function derecho(){
         header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+        echo '保障您的安全先要授权哦';
     }
     //授权回调
     public function getU(){
