@@ -71,5 +71,6 @@ Route::get('/wxweb/u', 'WxController@getU');
 Route::get('/wxweb/v', 'WxController@derecho');
 //签到
 Route::get('/wxweb/k', 'WxController@trono');
+Route::get('/wxweb/g', 'WxController@sign');
 //参数二维码
 Route::get('/qcode', 'WxController@qcode');
