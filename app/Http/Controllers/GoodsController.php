@@ -15,7 +15,7 @@ class GoodsController extends Controller
         if(!$goods_id){
             return $goods_id;
         }
-        //$detailInfo=GoodsModel::where(['goods_id'=>$goods_id])->first();
+        $detailInfo=GoodsModel::where(['goods_id'=>$goods_id])->first();
 
         //dd($detailInfo);
         //浏览商品自增
@@ -28,7 +28,9 @@ class GoodsController extends Controller
         //有序集合 浏览排名
         $range='ss:goods_view';
         $rank=Redis::zAdd($range,$browse,$goods_id);
-        return view('goods/goodsdetail',compact('detailInfo','browse'));
+        print_r($_SERVER);
+        $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] .$_SERVER['REQUEST_URI'];
+        return view('goods/goodsdetail',compact('detailInfo','browse','server'));
     }
     //商品浏览排名
     public function ranking(){
@@ -65,7 +67,6 @@ class GoodsController extends Controller
         $server=[
             'server'=>$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] .$_SERVER['REQUEST_URI']
         ];
-
         return view('goods/goods',$data,$server);
     }
 

@@ -80,7 +80,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title m-b-md" id="qrcode">
                     <table>
                         <tr>
                             <td>id</td>
@@ -100,3 +100,7 @@
         </div>
     </body>
 </html>
+<script src="/js/qrcode.js"></script>
+<script type="text/javascript">
+    new QRCode(document.getElementById("qrcode"), "{{$server}}");
+</script>
