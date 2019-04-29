@@ -45,10 +45,9 @@ class WxController extends Controller
             if($msg_type=='event'){
                 $user=QcodeModel::where(['openid'=>$openid])->first();
                 if($user){
-                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'bienvenida a volverte '. $user['nickname'] .']]></Content></xml>';
                     $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
                     $goods_name=$data[0]['goods_name'];
-                    $str='最新商品';
+                    $str="bienvenida a volverte".$user['nickname'];
                     $url="http://1809bilige.comcto.com/newgoods";
                     $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                     $response_xml='<xml>
@@ -76,11 +75,10 @@ class WxController extends Controller
                         'headimgurl'  => $arr['headimgurl'],
                     ];
                     $re = QcodeModel::insertGetId($useinfo);
-                    echo '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$wx_id.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'muy contento de seguirme '. $arr['nickname'] .']]></Content></xml>';
                     if($re){
                         $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
                         $goods_name=$data[0]['goods_name'];
-                        $str='最新商品';
+                        $str="muy contento de seguirme".$user['nickname'];;
                         $url="http://1809bilige.comcto.com/newgoods";
                         $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                         $response_xml='<xml>
