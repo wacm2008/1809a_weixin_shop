@@ -86,6 +86,7 @@ class GoodsController extends Controller
         $grid->goods_price('Goods price');
         $grid->goods_store('Goods store');
         $grid->goods_browse('Goods browse');
+        $grid->goods_img('Goods img')->image();
         $grid->is_delete('Is delete');
 
         return $grid;
@@ -126,6 +127,7 @@ class GoodsController extends Controller
         $form->number('goods_store', 'Goods store')->default(100);
         $form->number('goods_browse', 'Goods browse');
         $form->switch('is_delete', 'Is delete');
+        $form->image('goods_img','Goods img');
 
         return $form;
     }

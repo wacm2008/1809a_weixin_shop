@@ -120,7 +120,8 @@ class ImageController extends Controller
         $response=$client->request('POST',$url,[
             'body'=>$data
         ]);
-        if($response){
+        $res= $response->getBody();
+        if($res){
             return json_encode(['code'=>1,'msg'=>'成功']);
         }else{
             return json_encode(['code'=>2,'msg'=>'失败']);

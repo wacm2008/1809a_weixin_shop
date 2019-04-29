@@ -252,10 +252,10 @@ class WxController extends Controller
                                   </Articles>
                                 </xml>';
                 echo $response_xml;
-            }else if($data->Content=='iPhone X'){
+            }else if($data->Content=="iPhone X"){
                 $goodsInfo=GoodsModel::where(['goods_id'=>3])->first()->toArray();
                 $goods_name=$goodsInfo['goods_name'];
-                $str='iPhone X';
+                $str=$goods_name;
                 $url="http://1809bilige.comcto.com/goodsdetail/3";
                 $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                 $response_xml='<xml>
