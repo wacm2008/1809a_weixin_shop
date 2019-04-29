@@ -420,13 +420,13 @@ class WxController extends Controller
     }
     //授权码
     public function derecho(){
-        echo '保障您的安全先要授权哦';
+        echo '获取福利 保障您的安全先要授权哦';
         header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
     }
     public function trono(){
         //http://1809a.weixin.shop/test/urlencode?url=http://1809bilige.comcto.com/wxweb/g
         //http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fg
-        echo '保障您的安全先要授权哦';
+        echo '签到 保障您的安全先要授权哦';
         header('refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fg&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
     }
     //签到

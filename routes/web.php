@@ -65,7 +65,7 @@ Route::get('/weixin/send','WxController@send');
 Route::get('/newgoods', 'GoodsController@newgoods');
 //计划任务删除过期订单
 Route::get('/crontab/delorder', 'Crontab\CrontabController@delorder');
-//微信网页授权回调
+//微信网页授权回调(福利)
 Route::get('/wxweb/u', 'WxController@getU');
 //福利
 Route::get('/wxweb/v', 'WxController@derecho');
