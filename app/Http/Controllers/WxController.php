@@ -329,6 +329,7 @@ class WxController extends Controller
     }
     //微信菜单创建
     public function createMenu(){
+        $server=$_SERVER['REQUEST_SCHEME'] . '://1809bilige.comcto.com/wxweb/v';
         //接口数据
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getAccessToken();
         //菜单层级
@@ -348,7 +349,7 @@ class WxController extends Controller
                     'type'  => 'view',
                     'name'  => '最新福利',
                     'key'   => 'key_menu_003',
-                    'url'   => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+                    'url'   => $server
                 ],
             ]
         ];
@@ -410,6 +411,11 @@ class WxController extends Controller
         $res=$this->sendQun($openid_arr,$msg);
         echo $res;
     }
+    //授权码
+    public function derecho(){
+        header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+        echo "前往福利";
+    }
     //授权回调
     public function getU(){
         $code = $_GET['code'];
@@ -438,7 +444,9 @@ class WxController extends Controller
                 'headimgurl'  => $arr['headimgurl'],
             ];
             $id = WxuserModel::insertGetId($user_info);
-            echo $arr['nickname'].'gracias por seguirme';
+            $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .'/newgoods';
+            header("refresh:3;url=".$server);
+            echo $arr['nickname'].'gracias por seguirme'.'前往福利中';
         }
     }
     //带参数二维码
