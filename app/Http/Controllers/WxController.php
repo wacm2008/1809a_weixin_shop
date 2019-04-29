@@ -425,8 +425,10 @@ class WxController extends Controller
     }
     public function trono(){
         //echo urlencode('http://1809bilige.comcto.com/wxweb/k');
-        echo '保障您的安全先要授权哦';
         header('refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fk&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+    }
+    //签到
+    public function sign(){
         $code = $_GET['code'];
         $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
         $response = json_decode(file_get_contents($url),true);
