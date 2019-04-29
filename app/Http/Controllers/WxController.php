@@ -50,7 +50,7 @@ class WxController extends Controller
                     $goods_name=$data[0]['goods_name'];
                     $str='最新商品';
                     $url="http://1809bilige.comcto.com/newgoods";
-                    $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                    $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                     $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -82,7 +82,7 @@ class WxController extends Controller
                         $goods_name=$data[0]['goods_name'];
                         $str='最新商品';
                         $url="http://1809bilige.comcto.com/newgoods";
-                        $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                        $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                         $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -235,7 +235,7 @@ class WxController extends Controller
                 $goods_name=$data[0]['goods_name'];
                 $str='最新商品';
                 $url="http://1809bilige.comcto.com/newgoods";
-                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -257,7 +257,7 @@ class WxController extends Controller
                 $goods_name=$goodsInfo['goods_name'];
                 $str='iPhone X';
                 $url="http://1809bilige.comcto.com/goodsdetail/3";
-                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -279,7 +279,7 @@ class WxController extends Controller
                 $goods_name=$data[0]['goods_name'];
                 $str='最新商品';
                 $url="http://1809bilige.comcto.com/newgoods";
-                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>

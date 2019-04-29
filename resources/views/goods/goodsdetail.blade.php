@@ -120,7 +120,7 @@
         wx.updateTimelineShareData({
             title: "苹果手机", // 分享标题
             link: 'http://1809bilige.comcto.com/goodsdetail/3', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: 'http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg', // 分享图标
+            imgUrl: 'http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg', // 分享图标
             success: function () {
                 // 设置成功
             }
@@ -132,7 +132,7 @@
             title: '苹果手机', // 分享标题
             desc: "{{$detailInfo->goods_name}}", // 分享描述
             link: 'http://1809bilige.comcto.com/goodsdetail/3', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-            imgUrl: 'http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg', // 分享图标
+            imgUrl: 'http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg', // 分享图标
             success: function () {
                 // 设置成功
             }
