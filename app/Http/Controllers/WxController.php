@@ -50,7 +50,7 @@ class WxController extends Controller
                     $goods_name=$data[0]['goods_name'];
                     $str='最新商品';
                     $url="http://1809bilige.comcto.com/newgoods";
-                    $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
+                    $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
                     $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -82,7 +82,7 @@ class WxController extends Controller
                         $goods_name=$data[0]['goods_name'];
                         $str='最新商品';
                         $url="http://1809bilige.comcto.com/newgoods";
-                        $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
+                        $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
                         $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
@@ -235,7 +235,51 @@ class WxController extends Controller
                 $goods_name=$data[0]['goods_name'];
                 $str='最新商品';
                 $url="http://1809bilige.comcto.com/newgoods";
-                $urli='http://img5.imgtn.bdimg.com/it/u=2373363566,4017206359&fm=200&gp=0.jpg';
+                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                $response_xml='<xml>
+                                  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                                  <CreateTime>'.time().'</CreateTime>
+                                  <MsgType><![CDATA[news]]></MsgType>
+                                  <ArticleCount>1</ArticleCount>
+                                  <Articles>
+                                    <item>
+                                      <Title><![CDATA['.$str.']]></Title>
+                                      <Description><![CDATA['.$goods_name.']]></Description>
+                                      <PicUrl><![CDATA['.$urli.']]></PicUrl>
+                                      <Url><![CDATA['.$url.']]></Url>
+                                    </item>
+                                  </Articles>
+                                </xml>';
+                echo $response_xml;
+            }else if($data->Content=='iPhone X'){
+                $goodsInfo=GoodsModel::first()->toArray();
+                $goods_name=$goodsInfo['goods_name'];
+                $str='iPhone X';
+                $url="http://1809bilige.comcto.com/goodsdetail/3";
+                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
+                $response_xml='<xml>
+                                  <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                                  <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                                  <CreateTime>'.time().'</CreateTime>
+                                  <MsgType><![CDATA[news]]></MsgType>
+                                  <ArticleCount>1</ArticleCount>
+                                  <Articles>
+                                    <item>
+                                      <Title><![CDATA['.$str.']]></Title>
+                                      <Description><![CDATA['.$goods_name.']]></Description>
+                                      <PicUrl><![CDATA['.$urli.']]></PicUrl>
+                                      <Url><![CDATA['.$url.']]></Url>
+                                    </item>
+                                  </Articles>
+                                </xml>';
+                echo $response_xml;
+            }else{
+                $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
+                $goods_name=$data[0]['goods_name'];
+                $str='最新商品';
+                $url="http://1809bilige.comcto.com/newgoods";
+                $urli='http://img1.imgtn.bdimg.com/it/u=1155347997,2797758796&fm=26&gp=0.jpg';
                 $response_xml='<xml>
                                   <ToUserName><![CDATA['.$openid.']]></ToUserName>
                                   <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
