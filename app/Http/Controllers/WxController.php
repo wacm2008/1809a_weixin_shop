@@ -466,7 +466,7 @@ class WxController extends Controller
         echo "<h2>签到成功</h2>";
         //获取签到记录
         $firma_dato = Redis::lrange($k,0,-1);
-        print_r($firma_dato);
+        echo "<pre>";print_r($firma_dato);echo "</pre>";
     }
     //授权回调
     public function getU(){
