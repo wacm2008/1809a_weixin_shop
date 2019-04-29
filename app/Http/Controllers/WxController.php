@@ -440,7 +440,33 @@ class WxController extends Controller
         //获取用户信息
         $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $user_info = json_decode(file_get_contents($url),true);
-        print_r($user_info);
+        //print_r($user_info);
+        $local_user = WxuserModel::where(['openid'=>$openid])->first();
+        if($local_user){
+            //存储redis
+            $k = 'firma';
+            Redis::lpush($k,$local_user['nickname'].date('Y-m-d H:i:s',time()));
+            echo "bienvenida a volverte".$local_user['nickname'];
+        }else{
+            //用户首次关注 获取用户信息
+            $arr = $this->getUserInfo($openid);
+            //用户信息入库
+            $user_info = [
+                'openid'    => $arr['openid'],
+                'nickname'  => $arr['nickname'],
+                'sex'  => $arr['sex'],
+                'headimgurl'  => $arr['headimgurl'],
+            ];
+            $id = WxuserModel::insertGetId($user_info);
+            //存储redis
+            $k = 'firma';
+            Redis::lpush($k,$arr['nickname'].date('Y-m-d H:i:s',time()));
+            echo "muy contento de seguirme".$arr['nickname'];
+        }
+        echo "<h2>签到成功</h2>";
+        //获取签到记录
+        $firma_dato = Redis::lrange($k,0,-1);
+        echo "<pre>";print_r($firma_dato);echo "</pre>";
     }
     //授权回调
     public function getU(){
