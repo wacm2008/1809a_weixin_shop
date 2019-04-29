@@ -344,6 +344,12 @@ class WxController extends Controller
                     'name'  => '圣家族大教堂',
                     'key'   => 'key_menu_002'
                 ],
+                [
+                    'type'  => 'view',
+                    'name'  => '最新福利',
+                    'key'   => 'key_menu_003',
+                    'url'   => 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+                ],
             ]
         ];
         //处理中文编码
