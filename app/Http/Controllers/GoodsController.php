@@ -28,7 +28,6 @@ class GoodsController extends Controller
         //有序集合 浏览排名
         $range='ss:goods_view';
         $rank=Redis::zAdd($range,$browse,$goods_id);
-        print_r($_SERVER);
         $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] .$_SERVER['REQUEST_URI'];
         return view('goods/goodsdetail',compact('detailInfo','browse','server'));
     }
