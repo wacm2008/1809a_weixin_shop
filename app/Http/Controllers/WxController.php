@@ -330,6 +330,7 @@ class WxController extends Controller
     //微信菜单创建
     public function createMenu(){
         $server=$_SERVER['REQUEST_SCHEME'] . '://1809bilige.comcto.com/wxweb/v';
+        $ser=$_SERVER['REQUEST_SCHEME'] . '://1809bilige.comcto.com/wxweb/k';
         //接口数据
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getAccessToken();
         //菜单层级
@@ -340,16 +341,16 @@ class WxController extends Controller
                     'name'  => '巴特罗之家',
                     'key'   => 'key_menu_001'
                 ],
+//                [
+//                    'type'  => 'click',
+//                    'name'  => '圣家族大教堂',
+//                    'key'   => 'key_menu_002'
+//                ],
                 [
-                    'type'  => 'click',
-                    'name'  => [
-                        '圣家族大教堂'=>[
-                            'type'  => 'click',
-                            'name'  => '巴特罗之家',
-                            'key'   => 'key_menu_001'
-                        ]
-                    ],
-                    'key'   => 'key_menu_002'
+                    'type'  => 'view',
+                    'name'  => '签到',
+                    'key'   => 'key_menu_002',
+                    'url'   => $ser
                 ],
                 [
                     'type'  => 'view',
@@ -419,13 +420,23 @@ class WxController extends Controller
     }
     //授权码
     public function derecho(){
-        header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
         echo '保障您的安全先要授权哦';
+        header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
     }
     public function trono(){
-        echo urlencode('http://1809bilige.comcto.com/wxweb/k');
-//        $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APPID').'&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-//        echo $url;
+        //echo urlencode('http://1809bilige.comcto.com/wxweb/k');
+        echo '保障您的安全先要授权哦';
+        header('refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fk&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect');
+        $code = $_GET['code'];
+        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
+        $response = json_decode(file_get_contents($url),true);
+        //print_r($response);
+        $access_token = $response['access_token'];
+        $openid = $response['openid'];
+        //获取用户信息
+        $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+        $user_info = json_decode(file_get_contents($url),true);
+        print_r($user_info);
     }
     //授权回调
     public function getU(){
@@ -444,8 +455,8 @@ class WxController extends Controller
         if($local_user){
             //用户之前关注过
             $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .'/newgoods';
-            header("refresh:3;url=".$server);
             echo $local_user['nickname'].'gracias por haberte vuelto'.'前往福利中';
+            header("refresh:3;url=".$server);
         }else{
             //用户首次关注 获取用户信息
             $arr = $this->getUserInfo($openid);
@@ -458,8 +469,8 @@ class WxController extends Controller
             ];
             $id = WxuserModel::insertGetId($user_info);
             $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .'/newgoods';
-            header("refresh:3;url=".$server);
             echo $arr['nickname'].'gracias por seguirme'.'前往福利中';
+            header("refresh:3;url=".$server);
         }
     }
     //带参数二维码
