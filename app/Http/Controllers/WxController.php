@@ -414,7 +414,6 @@ class WxController extends Controller
     //授权码
     public function derecho(){
         header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
-        echo "前往福利";
     }
     //授权回调
     public function getU(){
@@ -432,7 +431,9 @@ class WxController extends Controller
         $local_user = WxuserModel::where(['openid'=>$openid])->first();
         if($local_user){
             //用户之前关注过
-            echo $local_user['nickname'].'gracias por haberte vuelto';
+            $server=$_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] .'/newgoods';
+            header("refresh:3;url=".$server);
+            echo $local_user['nickname'].'gracias por haberte vuelto'.'前往福利中';
         }else{
             //用户首次关注 获取用户信息
             $arr = $this->getUserInfo($openid);
