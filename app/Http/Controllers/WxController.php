@@ -342,7 +342,13 @@ class WxController extends Controller
                 ],
                 [
                     'type'  => 'click',
-                    'name'  => '圣家族大教堂',
+                    'name'  => [
+                        '圣家族大教堂'=>[
+                            'type'  => 'click',
+                            'name'  => '巴特罗之家',
+                            'key'   => 'key_menu_001'
+                        ]
+                    ],
                     'key'   => 'key_menu_002'
                 ],
                 [
@@ -415,6 +421,11 @@ class WxController extends Controller
     public function derecho(){
         header("refresh:3;url=https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx210a7821bf7f2525&redirect_uri=http%3A%2F%2F1809bilige.comcto.com%2Fwxweb%2Fu&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
         echo '保障您的安全先要授权哦';
+    }
+    public function trono(){
+        echo urlencode('http://1809bilige.comcto.com/wxweb/k');
+//        $url='https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WX_APPID').'&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+//        echo $url;
     }
     //授权回调
     public function getU(){
