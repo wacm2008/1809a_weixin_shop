@@ -529,4 +529,8 @@ class WxController extends Controller
         $urli='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$arr['ticket'];
         header("refresh:1;url=$urli");
     }
+    //标签
+    public function etiqueta(){
+
+    }
 }
