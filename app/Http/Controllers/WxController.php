@@ -531,13 +531,14 @@ class WxController extends Controller
     }
     //标签
     public function etiqueta(){
-        $code=$_GET['code'];
-        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code=CODE&grant_type=authorization_code';
-        $response=json_decode(file_get_contents($url),true);
-        $access_token=$response['access_token'];
-        $openid=$response['openid'];
-        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
-        $user_info=json_decode(file_get_contents($url),true);
-        print_r($user_info);
+        echo 111;
+//        $code=$_GET['code'];
+//        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code=CODE&grant_type=authorization_code';
+//        $response=json_decode(file_get_contents($url),true);
+//        $access_token=$response['access_token'];
+//        $openid=$response['openid'];
+//        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+//        $user_info=json_decode(file_get_contents($url),true);
+//        print_r($user_info);
     }
 }
