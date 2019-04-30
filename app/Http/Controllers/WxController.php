@@ -568,6 +568,5 @@ class WxController extends Controller
             'body'=> $json
         ]);
         $res=json_decode($respon->getBody(),true);
-        print_r($res);
     }
 }
