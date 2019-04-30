@@ -556,7 +556,7 @@ class WxController extends Controller
         }
 
         //标签接口
-        $urli='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.$access_token;
+        $urli='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.getAccessToken();
         $data=[
             'tag'=>[
                 'name'=>'用户'
