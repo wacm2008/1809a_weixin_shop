@@ -538,6 +538,36 @@ class WxController extends Controller
         $openid=$response['openid'];
         $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
         $user_info=json_decode(file_get_contents($url),true);
-        print_r($user_info);
+        $local_user=WxuserModel::where(['openid'=>$openid])->first();
+        if($local_user){
+            //之前关注
+            echo $local_user['nickname'].'欢迎回来';
+        }else{
+            //首次关注用户
+            $arr=$this->getUserInfo($openid);
+            $user_info=[
+                'nickname'=>$arr['nickname'],
+                'openid'=>$arr['openid'],
+                'sex'=>$arr['sex'],
+                'headimgurl'=>$arr['headimgurl']
+            ];
+            $u_info=WxuserModel::insert($user_info);
+            echo $arr['nickname'].'欢迎关注';
+        }
+
+        //标签接口
+        $urli='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.$access_token;
+        $data=[
+            'tag'=>[
+                'name'=>'用户'
+            ]
+        ];
+        $json = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $client= new Client();
+        $respon=$client->request('POST',$urli,[
+            'body'=> $json
+        ]);
+        $res=json_decode($respon->getBody(),true);
+        print_r($res);
     }
 }
