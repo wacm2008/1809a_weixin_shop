@@ -47,7 +47,7 @@ class WxController extends Controller
                 if($user){
                     $data=GoodsModel::orderBy('goods_id','desc')->take(1)->get()->toArray();
                     $goods_name=$data[0]['goods_name'];
-                    $str="bienvenida a volverte".$user['nickname'];
+                    $str="bienvenido a volverte".$user['nickname'];
                     $url="http://1809bilige.comcto.com/newgoods";
                     $urli='http://img4.imgtn.bdimg.com/it/u=2861992681,4269596371&fm=26&gp=0.jpg';
                     $response_xml='<xml>
