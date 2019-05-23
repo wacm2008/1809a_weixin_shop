@@ -74,5 +74,3 @@ Route::get('/wxweb/k', 'WxController@trono');
 Route::get('/wxweb/g', 'WxController@sign');
 //参数二维码
 Route::get('/qcode', 'WxController@qcode');
-//考试标签授权
-Route::get('/etiqueta', 'WxController@etiqueta');

@@ -13,7 +13,7 @@
             if(isset($arr['access_token'])){
                 Redis::set($key,$arr['access_token']);
                 Redis::expire($key,3600);
-                $toke=$arr['access_token'];
+                $token=$arr['access_token'];
                 return $token;
             }else{
                 return false;

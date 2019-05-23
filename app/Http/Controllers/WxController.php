@@ -414,7 +414,10 @@ class WxController extends Controller
         //print_r($user_list);
         $openid_arr=array_column($user_list,'openid');
         //print_r($openid_arr);
-        $msg='jajaja';
+        $content=file_get_contents(storage_path('app/proverbio'));
+        $arr = explode('|',$content);
+        $num = rand(1,100);
+        $msg= rtrim($arr[$num],'');
         $res=$this->sendQun($openid_arr,$msg);
         echo $res;
     }
@@ -528,45 +531,5 @@ class WxController extends Controller
         $arr = json_decode($res_str,true);
         $urli='https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket='.$arr['ticket'];
         header("refresh:1;url=$urli");
-    }
-    //标签
-    public function etiqueta(){
-        $code=$_GET['code'];
-        $url='https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WX_APPID').'&secret='.env('WX_APPSECRET').'&code='.$code.'&grant_type=authorization_code';
-        $response=json_decode(file_get_contents($url),true);
-        $access_token=$response['access_token'];
-        $openid=$response['openid'];
-        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
-        $user_info=json_decode(file_get_contents($url),true);
-        $local_user=WxuserModel::where(['openid'=>$openid])->first();
-        if($local_user){
-            //之前关注
-            echo $local_user['nickname'].'欢迎回来';
-        }else{
-            //首次关注用户
-            $arr=$this->getUserInfo($openid);
-            $user_info=[
-                'nickname'=>$arr['nickname'],
-                'openid'=>$arr['openid'],
-                'sex'=>$arr['sex'],
-                'headimgurl'=>$arr['headimgurl']
-            ];
-            $u_info=WxuserModel::insert($user_info);
-            echo $arr['nickname'].'欢迎关注';
-        }
-
-        //标签接口
-        $urli='https://api.weixin.qq.com/cgi-bin/tags/create?access_token='.getAccessToken();
-        $data=[
-            'tag'=>[
-                'name'=>'用户'
-            ]
-        ];
-        $json = json_encode($data,JSON_UNESCAPED_UNICODE);
-        $client= new Client();
-        $respon=$client->request('POST',$urli,[
-            'body'=> $json
-        ]);
-        $res=json_decode($respon->getBody(),true);
     }
 }
